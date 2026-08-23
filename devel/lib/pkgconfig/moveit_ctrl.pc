@@ -1,0 +1,8 @@
+prefix=/home/test/piper/devel
+
+Name: moveit_ctrl
+Description: Description of moveit_ctrl
+Version: 0.0.0
+Cflags: -I/home/test/piper/devel/include
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy moveit_ros_planning_interface sensor_msgs message_runtime

@@ -1,0 +1,108 @@
+<launch>
+  <arg name="camera_name" default="camera"/>
+  <arg name="serial_no" default=""/>
+  <arg name="enable_color" default=""/>
+  <arg name="enable_depth" default=""/>
+  <arg name="enable_infra" default=""/>
+  <arg name="enable_infra1" default=""/>
+  <arg name="enable_infra2" default=""/>
+  <arg name="enable_gyro" default=""/>
+  <arg name="enable_accel" default=""/>
+  <arg name="enable_pointcloud" default=""/>
+  <arg name="align_depth" default=""/>
+  <arg name="enable_sync" default=""/>
+  <arg name="color_width" default=""/>
+  <arg name="color_height" default=""/>
+  <arg name="color_fps" default=""/>
+  <arg name="depth_width" default=""/>
+  <arg name="depth_height" default=""/>
+  <arg name="depth_fps" default=""/>
+  <arg name="publish_tf" default=""/>
+  <arg name="tf_publish_rate" default=""/>
+  <arg name="publish_odom_tf" default=""/>
+  <arg name="reconnect_timeout" default=""/>
+  <arg name="wait_for_device_timeout" default=""/>
+
+  <group ns="$(arg camera_name)">
+    <rosparam command="load"
+              file="$(find piper_realsense)/config/generic_rgbd.yaml"
+              ns="realsense2_camera"/>
+
+    <node pkg="nodelet"
+          type="nodelet"
+          name="realsense2_camera_manager"
+          args="manager"
+          output="screen"/>
+
+    <node pkg="nodelet"
+          type="nodelet"
+          name="realsense2_camera"
+          args="load realsense2_camera/RealSenseNodeFactory realsense2_camera_manager">
+      <param name="serial_no" type="str" value="$(arg serial_no)"/>
+
+      <param name="base_frame_id" type="str" value="$(arg camera_name)_link"/>
+      <param name="depth_frame_id" type="str" value="$(arg camera_name)_depth_frame"/>
+      <param name="infra1_frame_id" type="str" value="$(arg camera_name)_infra1_frame"/>
+      <param name="infra2_frame_id" type="str" value="$(arg camera_name)_infra2_frame"/>
+      <param name="color_frame_id" type="str" value="$(arg camera_name)_color_frame"/>
+      <param name="fisheye_frame_id" type="str" value="$(arg camera_name)_fisheye_frame"/>
+      <param name="fisheye1_frame_id" type="str" value="$(arg camera_name)_fisheye1_frame"/>
+      <param name="fisheye2_frame_id" type="str" value="$(arg camera_name)_fisheye2_frame"/>
+      <param name="accel_frame_id" type="str" value="$(arg camera_name)_accel_frame"/>
+      <param name="gyro_frame_id" type="str" value="$(arg camera_name)_gyro_frame"/>
+      <param name="pose_frame_id" type="str" value="$(arg camera_name)_pose_frame"/>
+
+      <param name="depth_optical_frame_id" type="str" value="$(arg camera_name)_depth_optical_frame"/>
+      <param name="infra1_optical_frame_id" type="str" value="$(arg camera_name)_infra1_optical_frame"/>
+      <param name="infra2_optical_frame_id" type="str" value="$(arg camera_name)_infra2_optical_frame"/>
+      <param name="color_optical_frame_id" type="str" value="$(arg camera_name)_color_optical_frame"/>
+      <param name="fisheye_optical_frame_id" type="str" value="$(arg camera_name)_fisheye_optical_frame"/>
+      <param name="fisheye1_optical_frame_id" type="str" value="$(arg camera_name)_fisheye1_optical_frame"/>
+      <param name="fisheye2_optical_frame_id" type="str" value="$(arg camera_name)_fisheye2_optical_frame"/>
+      <param name="accel_optical_frame_id" type="str" value="$(arg camera_name)_accel_optical_frame"/>
+      <param name="gyro_optical_frame_id" type="str" value="$(arg camera_name)_gyro_optical_frame"/>
+      <param name="imu_optical_frame_id" type="str" value="$(arg camera_name)_imu_optical_frame"/>
+      <param name="pose_optical_frame_id" type="str" value="$(arg camera_name)_pose_optical_frame"/>
+
+      <param name="aligned_depth_to_color_frame_id" type="str" value="$(arg camera_name)_aligned_depth_to_color_frame"/>
+      <param name="aligned_depth_to_infra1_frame_id" type="str" value="$(arg camera_name)_aligned_depth_to_infra1_frame"/>
+      <param name="aligned_depth_to_infra2_frame_id" type="str" value="$(arg camera_name)_aligned_depth_to_infra2_frame"/>
+      <param name="aligned_depth_to_fisheye_frame_id" type="str" value="$(arg camera_name)_aligned_depth_to_fisheye_frame"/>
+      <param name="aligned_depth_to_fisheye1_frame_id" type="str" value="$(arg camera_name)_aligned_depth_to_fisheye1_frame"/>
+      <param name="aligned_depth_to_fisheye2_frame_id" type="str" value="$(arg camera_name)_aligned_depth_to_fisheye2_frame"/>
+
+      <param name="odom_frame_id" type="str" value="$(arg camera_name)_odom_frame"/>
+      <param name="topic_odom_in" type="str" value="odom_in"/>
+
+      <param if="$(eval arg('enable_color') != '')" name="enable_color" type="bool" value="$(arg enable_color)"/>
+      <param if="$(eval arg('enable_depth') != '')" name="enable_depth" type="bool" value="$(arg enable_depth)"/>
+      <param if="$(eval arg('enable_infra') != '')" name="enable_infra" type="bool" value="$(arg enable_infra)"/>
+      <param if="$(eval arg('enable_infra1') != '')" name="enable_infra1" type="bool" value="$(arg enable_infra1)"/>
+      <param if="$(eval arg('enable_infra2') != '')" name="enable_infra2" type="bool" value="$(arg enable_infra2)"/>
+      <param if="$(eval arg('enable_gyro') != '')" name="enable_gyro" type="bool" value="$(arg enable_gyro)"/>
+      <param if="$(eval arg('enable_accel') != '')" name="enable_accel" type="bool" value="$(arg enable_accel)"/>
+      <param if="$(eval arg('enable_pointcloud') != '')" name="enable_pointcloud" type="bool" value="$(arg enable_pointcloud)"/>
+      <param if="$(eval arg('align_depth') != '')" name="align_depth" type="bool" value="$(arg align_depth)"/>
+      <param if="$(eval arg('enable_sync') != '')" name="enable_sync" type="bool" value="$(arg enable_sync)"/>
+      <param if="$(eval arg('color_width') != '')" name="color_width" type="int" value="$(arg color_width)"/>
+      <param if="$(eval arg('color_height') != '')" name="color_height" type="int" value="$(arg color_height)"/>
+      <param if="$(eval arg('color_fps') != '')" name="color_fps" type="int" value="$(arg color_fps)"/>
+      <param if="$(eval arg('depth_width') != '')" name="depth_width" type="int" value="$(arg depth_width)"/>
+      <param if="$(eval arg('depth_height') != '')" name="depth_height" type="int" value="$(arg depth_height)"/>
+      <param if="$(eval arg('depth_fps') != '')" name="depth_fps" type="int" value="$(arg depth_fps)"/>
+      <param if="$(eval arg('publish_tf') != '')" name="publish_tf" type="bool" value="$(arg publish_tf)"/>
+      <param if="$(eval arg('tf_publish_rate') != '')" name="tf_publish_rate" type="double" value="$(arg tf_publish_rate)"/>
+      <param if="$(eval arg('publish_odom_tf') != '')" name="publish_odom_tf" type="bool" value="$(arg publish_odom_tf)"/>
+      <param if="$(eval arg('reconnect_timeout') != '')" name="reconnect_timeout" type="double" value="$(arg reconnect_timeout)"/>
+      <param if="$(eval arg('wait_for_device_timeout') != '')" name="wait_for_device_timeout" type="double" value="$(arg wait_for_device_timeout)"/>
+    </node>
+  </group>
+
+  <group ns="$(arg camera_name)" if="$(eval arg('enable_pointcloud') != 'false')">
+    <node pkg="topic_tools"
+          type="relay"
+          name="depth_registered_points_relay"
+          args="depth/color/points depth_registered/points"
+          output="screen"/>
+  </group>
+</launch>

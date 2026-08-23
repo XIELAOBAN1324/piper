@@ -1,0 +1,2 @@
+set(piper_msgs_MESSAGE_FILES "/home/test/piper/src/piper_ros/src/piper_msgs/msg/PiperStatusMsg.msg;/home/test/piper/src/piper_ros/src/piper_msgs/msg/PosCmd.msg;/home/test/piper/src/piper_ros/src/piper_msgs/msg/PiperEulerPose.msg")
+set(piper_msgs_SERVICE_FILES "/home/test/piper/src/piper_ros/src/piper_msgs/srv/Enable.srv;/home/test/piper/src/piper_ros/src/piper_msgs/srv/Gripper.srv;/home/test/piper/src/piper_ros/src/piper_msgs/srv/GoZero.srv")

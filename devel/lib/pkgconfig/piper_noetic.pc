@@ -1,0 +1,8 @@
+prefix=/home/test/piper/devel
+
+Name: piper_noetic
+Description: Description of piper_noetic
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

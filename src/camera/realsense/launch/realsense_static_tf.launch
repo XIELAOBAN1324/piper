@@ -1,0 +1,13 @@
+<launch>
+  <arg name="publish_mount_tf" default="false"/>
+  <arg name="camera_name" default="camera"/>
+  <arg name="mount_parent_frame" default="world"/>
+  <arg name="mount_xyz" default="0 0 0"/>
+  <arg name="mount_rpy" default="0 0 0"/>
+
+  <node if="$(arg publish_mount_tf)"
+        pkg="tf2_ros"
+        type="static_transform_publisher"
+        name="$(anon realsense_mount_tf)"
+        args="$(eval '{} {} {} {} {} {} {} {}'.format(arg('mount_xyz').split()[0], arg('mount_xyz').split()[1], arg('mount_xyz').split()[2], arg('mount_rpy').split()[2], arg('mount_rpy').split()[1], arg('mount_rpy').split()[0], arg('mount_parent_frame'), arg('camera_name') + '_link'))"/>
+</launch>

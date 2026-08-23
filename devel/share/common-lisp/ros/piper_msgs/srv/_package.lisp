@@ -1,0 +1,20 @@
+(cl:defpackage piper_msgs-srv
+  (:use )
+  (:export
+   "ENABLE"
+   "<ENABLE-REQUEST>"
+   "ENABLE-REQUEST"
+   "<ENABLE-RESPONSE>"
+   "ENABLE-RESPONSE"
+   "GOZERO"
+   "<GOZERO-REQUEST>"
+   "GOZERO-REQUEST"
+   "<GOZERO-RESPONSE>"
+   "GOZERO-RESPONSE"
+   "GRIPPER"
+   "<GRIPPER-REQUEST>"
+   "GRIPPER-REQUEST"
+   "<GRIPPER-RESPONSE>"
+   "GRIPPER-RESPONSE"
+  ))
+

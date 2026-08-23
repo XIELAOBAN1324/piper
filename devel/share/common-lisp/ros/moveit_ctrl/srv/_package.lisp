@@ -1,0 +1,10 @@
+(cl:defpackage moveit_ctrl-srv
+  (:use )
+  (:export
+   "JOINTMOVEITCTRL"
+   "<JOINTMOVEITCTRL-REQUEST>"
+   "JOINTMOVEITCTRL-REQUEST"
+   "<JOINTMOVEITCTRL-RESPONSE>"
+   "JOINTMOVEITCTRL-RESPONSE"
+  ))
+

@@ -1,0 +1,8 @@
+prefix=/home/test/piper/devel
+
+Name: piper_no_gripper_moveit
+Description: Description of piper_no_gripper_moveit
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

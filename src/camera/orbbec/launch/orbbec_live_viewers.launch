@@ -1,0 +1,35 @@
+<launch>
+    <arg name="camera_name" default="camera"/>
+    <arg name="depth_topic" default="/camera/depth/image_raw"/>
+    <arg name="start_rgb_view" default="true"/>
+    <arg name="start_depth_view" default="true"/>
+    <arg name="start_rviz" default="true"/>
+    <arg name="rviz_config" default="$(find orbbec_camera)/rviz/urdf.rviz"/>
+
+    <node if="$(arg start_rgb_view)"
+          name="$(arg camera_name)_rgb_view"
+          pkg="image_view"
+          type="image_view"
+          output="screen">
+        <remap from="image" to="/$(arg camera_name)/color/image_raw"/>
+    </node>
+
+    <node if="$(arg start_depth_view)"
+          name="$(arg camera_name)_depth_view"
+          pkg="image_view"
+          type="image_view"
+          output="screen">
+        <remap from="image" to="$(arg depth_topic)"/>
+        <param name="do_dynamic_scaling" value="true"/>
+        <param name="colormap" value="2"/>
+        <param name="min_image_value" value="0.0"/>
+        <param name="max_image_value" value="5000.0"/>
+    </node>
+
+    <node if="$(arg start_rviz)"
+          name="$(arg camera_name)_pointcloud_view"
+          pkg="rviz"
+          type="rviz"
+          args="-d $(arg rviz_config)"
+          output="screen"/>
+</launch>

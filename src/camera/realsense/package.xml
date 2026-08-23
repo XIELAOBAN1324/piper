@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>piper_realsense</name>
+  <version>0.1.0</version>
+  <description>Lightweight ROS1 RealSense bringup wrapper for the Piper workspace.</description>
+
+  <maintainer email="agilex@todo.todo">agilex</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>realsense2_camera</depend>
+  <depend>rospy</depend>
+  <depend>tf2_ros</depend>
+  <depend>topic_tools</depend>
+
+  <exec_depend>roslaunch</exec_depend>
+  <test_depend>roslaunch</test_depend>
+</package>

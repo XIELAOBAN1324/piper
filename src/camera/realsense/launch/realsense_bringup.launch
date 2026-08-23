@@ -1,0 +1,95 @@
+<launch>
+  <arg name="camera_name" default="camera"/>
+  <arg name="serial_no" default=""/>
+  <arg name="enable_color" default=""/>
+  <arg name="enable_depth" default=""/>
+  <arg name="enable_infra" default=""/>
+  <arg name="enable_infra1" default=""/>
+  <arg name="enable_infra2" default=""/>
+  <arg name="enable_gyro" default=""/>
+  <arg name="enable_accel" default=""/>
+  <arg name="enable_pointcloud" default=""/>
+  <arg name="align_depth" default=""/>
+  <arg name="enable_sync" default=""/>
+  <arg name="color_width" default=""/>
+  <arg name="color_height" default=""/>
+  <arg name="color_fps" default=""/>
+  <arg name="depth_width" default=""/>
+  <arg name="depth_height" default=""/>
+  <arg name="depth_fps" default=""/>
+  <arg name="publish_tf" default=""/>
+  <arg name="tf_publish_rate" default=""/>
+  <arg name="publish_odom_tf" default=""/>
+  <arg name="reconnect_timeout" default=""/>
+  <arg name="wait_for_device_timeout" default=""/>
+  <arg name="publish_mount_tf" default="false"/>
+  <arg name="mount_parent_frame" default="world"/>
+  <arg name="mount_xyz" default="0 0 0"/>
+  <arg name="mount_rpy" default="0 0 0"/>
+
+  <group ns="piper_realsense/active/$(arg camera_name)">
+    <param name="profile" type="str" value="generic_rgbd"/>
+    <rosparam command="load" file="$(find piper_realsense)/config/generic_rgbd.yaml"/>
+    <param name="camera_name" type="str" value="$(arg camera_name)"/>
+    <param name="serial_no" type="str" value="$(arg serial_no)"/>
+    <param if="$(eval arg('enable_color') != '')" name="enable_color" type="bool" value="$(arg enable_color)"/>
+    <param if="$(eval arg('enable_depth') != '')" name="enable_depth" type="bool" value="$(arg enable_depth)"/>
+    <param if="$(eval arg('enable_infra') != '')" name="enable_infra" type="bool" value="$(arg enable_infra)"/>
+    <param if="$(eval arg('enable_infra1') != '')" name="enable_infra1" type="bool" value="$(arg enable_infra1)"/>
+    <param if="$(eval arg('enable_infra2') != '')" name="enable_infra2" type="bool" value="$(arg enable_infra2)"/>
+    <param if="$(eval arg('enable_gyro') != '')" name="enable_gyro" type="bool" value="$(arg enable_gyro)"/>
+    <param if="$(eval arg('enable_accel') != '')" name="enable_accel" type="bool" value="$(arg enable_accel)"/>
+    <param if="$(eval arg('enable_pointcloud') != '')" name="enable_pointcloud" type="bool" value="$(arg enable_pointcloud)"/>
+    <param if="$(eval arg('align_depth') != '')" name="align_depth" type="bool" value="$(arg align_depth)"/>
+    <param if="$(eval arg('enable_sync') != '')" name="enable_sync" type="bool" value="$(arg enable_sync)"/>
+    <param if="$(eval arg('color_width') != '')" name="color_width" type="int" value="$(arg color_width)"/>
+    <param if="$(eval arg('color_height') != '')" name="color_height" type="int" value="$(arg color_height)"/>
+    <param if="$(eval arg('color_fps') != '')" name="color_fps" type="int" value="$(arg color_fps)"/>
+    <param if="$(eval arg('depth_width') != '')" name="depth_width" type="int" value="$(arg depth_width)"/>
+    <param if="$(eval arg('depth_height') != '')" name="depth_height" type="int" value="$(arg depth_height)"/>
+    <param if="$(eval arg('depth_fps') != '')" name="depth_fps" type="int" value="$(arg depth_fps)"/>
+    <param if="$(eval arg('publish_tf') != '')" name="publish_tf" type="bool" value="$(arg publish_tf)"/>
+    <param if="$(eval arg('tf_publish_rate') != '')" name="tf_publish_rate" type="double" value="$(arg tf_publish_rate)"/>
+    <param if="$(eval arg('publish_odom_tf') != '')" name="publish_odom_tf" type="bool" value="$(arg publish_odom_tf)"/>
+    <param if="$(eval arg('reconnect_timeout') != '')" name="reconnect_timeout" type="double" value="$(arg reconnect_timeout)"/>
+    <param if="$(eval arg('wait_for_device_timeout') != '')" name="wait_for_device_timeout" type="double" value="$(arg wait_for_device_timeout)"/>
+    <param name="publish_mount_tf" type="bool" value="$(arg publish_mount_tf)"/>
+    <param name="mount_parent_frame" type="str" value="$(arg mount_parent_frame)"/>
+    <param name="mount_xyz" type="str" value="$(arg mount_xyz)"/>
+    <param name="mount_rpy" type="str" value="$(arg mount_rpy)"/>
+  </group>
+
+  <include file="$(find piper_realsense)/launch/realsense_node.launch">
+    <arg name="camera_name" value="$(arg camera_name)"/>
+    <arg name="serial_no" value="$(arg serial_no)"/>
+    <arg name="enable_color" value="$(arg enable_color)"/>
+    <arg name="enable_depth" value="$(arg enable_depth)"/>
+    <arg name="enable_infra" value="$(arg enable_infra)"/>
+    <arg name="enable_infra1" value="$(arg enable_infra1)"/>
+    <arg name="enable_infra2" value="$(arg enable_infra2)"/>
+    <arg name="enable_gyro" value="$(arg enable_gyro)"/>
+    <arg name="enable_accel" value="$(arg enable_accel)"/>
+    <arg name="enable_pointcloud" value="$(arg enable_pointcloud)"/>
+    <arg name="align_depth" value="$(arg align_depth)"/>
+    <arg name="enable_sync" value="$(arg enable_sync)"/>
+    <arg name="color_width" value="$(arg color_width)"/>
+    <arg name="color_height" value="$(arg color_height)"/>
+    <arg name="color_fps" value="$(arg color_fps)"/>
+    <arg name="depth_width" value="$(arg depth_width)"/>
+    <arg name="depth_height" value="$(arg depth_height)"/>
+    <arg name="depth_fps" value="$(arg depth_fps)"/>
+    <arg name="publish_tf" value="$(arg publish_tf)"/>
+    <arg name="tf_publish_rate" value="$(arg tf_publish_rate)"/>
+    <arg name="publish_odom_tf" value="$(arg publish_odom_tf)"/>
+    <arg name="reconnect_timeout" value="$(arg reconnect_timeout)"/>
+    <arg name="wait_for_device_timeout" value="$(arg wait_for_device_timeout)"/>
+  </include>
+
+  <include file="$(find piper_realsense)/launch/realsense_static_tf.launch">
+    <arg name="publish_mount_tf" value="$(arg publish_mount_tf)"/>
+    <arg name="camera_name" value="$(arg camera_name)"/>
+    <arg name="mount_parent_frame" value="$(arg mount_parent_frame)"/>
+    <arg name="mount_xyz" value="$(arg mount_xyz)"/>
+    <arg name="mount_rpy" value="$(arg mount_rpy)"/>
+  </include>
+</launch>

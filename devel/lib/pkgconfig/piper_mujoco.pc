@@ -1,0 +1,8 @@
+prefix=/home/test/piper/devel
+
+Name: piper_mujoco
+Description: Description of piper_mujoco
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: rospy std_msgs

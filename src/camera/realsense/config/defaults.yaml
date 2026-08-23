@@ -1,0 +1,10 @@
+piper_realsense:
+  defaults:
+    camera_name: camera
+    serial_no: ""
+    enable_pointcloud: true
+    align_depth: true
+    publish_mount_tf: false
+    mount_parent_frame: world
+    mount_xyz: "0 0 0"
+    mount_rpy: "0 0 0"
